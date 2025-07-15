@@ -16,7 +16,7 @@
 const data = require('../../lib/data');
 const { hash } = require('../../helpers/utilities');
 const { parseJSON } = require('../../helpers/utilities');
-const tokenHandler = require('./tokenHandlers');
+const tokenHandler = require('./tokenHandler');
 
 // module scaffolding
 const handler = {};
