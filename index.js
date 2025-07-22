@@ -7,24 +7,26 @@
  */
 
 // dependencies
-const http = require('http');
-const { handleReqRes } = require('./helpers/handleReqRes');
-const environment = require('./helpers/environment');
-const data = require('./lib/data');
-const { sendTwilioSms } = require('./helpers/notification');
+// const http = require('http');
+// const { handleReqRes } = require('./helpers/handleReqRes');
+// const environment = require('./helpers/environment');
+// const data = require('./lib/data');
+// const { sendTwilioSms } = require('./helpers/notification');
+const server = require('./lib/server');
+const workers = require('./lib/worker');
 
 // app object - module scaffolding
 const app = {};
 
 // @TODO remove later
-sendTwilioSms('01911111111', 'Hello world', (err) => {
-    console.log('this is the error', err);
-});
+// sendTwilioSms('01911111111', 'Hello world', (err) => {
+//     console.log('this is the error', err);
+// });
 
-// configuration
-app.config = {
-    port: 3000,
-};
+// // configuration
+// app.config = {
+//     port: 3000,
+// };
 
 // testing file system
 // data.create('test', 'newFile', { 'name': 'Bangladesh', 'language': 'Bangla' }, (err)=>{
@@ -41,15 +43,27 @@ app.config = {
 // });
 
 // create server
-app.createServer = () => {
-    const server = http.createServer(app.handleReqRes);
-    server.listen(environment.port, () => {
-        console.log(`listening to port ${environment.port}`);
-    });
+// app.createServer = () => {
+//     const server = http.createServer(app.handleReqRes);
+//     server.listen(environment.port, () => {
+//         console.log(`listening to port ${environment.port}`);
+//     });
+// };
+
+// // handle Request Response
+// app.handleReqRes = handleReqRes;
+
+// // start the server
+// app.createServer();
+
+app.init = () => {
+    // start the server
+    server.init();
+    // start the workers
+    workers.init();
 };
 
-// handle Request Response
-app.handleReqRes = handleReqRes;
+app.init();
 
-// start the server
-app.createServer();
+// export the app
+module.exports = app;
